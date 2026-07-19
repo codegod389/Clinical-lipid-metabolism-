@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz for Seniors: Advanced Clinical MCQs – Lipid Metabolism</title>
+    <style>
+        :root {
+            --primary: #2c5282;
+            --secondary: #3182ce;
+            --accent: #63b3ed;
+            --light: #ebf8ff;
+            --dark: #1a365d;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --senior-color: #9f7aea;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(44, 82, 130, 0.85), rgba(44, 82, 130, 0.9)), 
+                        url('https://i.ibb.co/HjLfn7p/t9duylpwvxf61.jpg') center/cover fixed;
+            color: #2d3748;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary), var(--senior-color));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--senior-color), var(--warning));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin-top: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quiz-info {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .info-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .quiz-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .questions-section {
+            flex: 2;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .answer-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            display: none;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .answer-section.visible {
+            display: block;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 5px;
+        }
+        
+        .question-number::before {
+            content: "Q";
+            background: linear-gradient(135deg, var(--primary), var(--senior-color));
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .question-text {
+            margin-bottom: 25px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            background: linear-gradient(to right, var(--light), #f7fafc);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .clinical-note {
+            background: linear-gradient(to right, #f7fafc, #e2e8f0);
+            border-left: 5px solid var(--senior-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 18px 25px;
+            border: 2px solid #cbd5e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.08rem;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: attr(data-letter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: #edf2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark);
+            border-right: 2px solid #cbd5e0;
+        }
+        
+        .option-content {
+            margin-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: #f7fafc;
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option.selected {
+            background-color: #e6fffa;
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
+        }
+        
+        .option.correct {
+            background-color: #f0fff4;
+            border-color: var(--success);
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.15);
+        }
+        
+        .option.incorrect {
+            background-color: #fff5f5;
+            border-color: var(--danger);
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.15);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+        
+        button {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.15rem;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--senior-color), var(--primary));
+            color: white;
+            flex: 2;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #ffffff, #f7fafc);
+            color: var(--dark);
+            flex: 1;
+            border: 2px solid #cbd5e0;
+        }
+        
+        .reset-btn:hover {
+            background: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .results-section {
+            margin-top: 50px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            display: none;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .score-display {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--senior-color));
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .score-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-20px, -20px) rotate(360deg); }
+        }
+        
+        .score-value {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 25px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            flex: 1;
+            transition: transform 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .passed .stat-value {
+            color: var(--success);
+            background: linear-gradient(135deg, var(--success), #48bb78);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .failed .stat-value {
+            color: var(--danger);
+            background: linear-gradient(135deg, var(--danger), #fc8181);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .attempted .stat-value {
+            color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), #4299e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .answer-bank {
+            margin-top: 50px;
+        }
+        
+        .answer-item {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+        
+        .answer-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .answer-correct {
+            color: var(--success);
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 10px;
+            background: #f0fff4;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .answer-incorrect {
+            color: var(--danger);
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 10px;
+            background: #fff5f5;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .support-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--senior-color));
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .support-link {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .support-link:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .share-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn-small {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .share-twitter {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+        }
+        
+        .share-facebook {
+            background: linear-gradient(135deg, #4267B2, #365899);
+            color: white;
+        }
+        
+        .share-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+        }
+        
+        .share-copy {
+            background: linear-gradient(135deg, var(--senior-color), var(--primary));
+            color: white;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--senior-color), var(--primary));
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @media (max-width: 1200px) {
+            .quiz-container { flex-direction: column; }
+            .stats { flex-direction: column; gap: 20px; }
+            .share-buttons { flex-direction: column; align-items: center; }
+            .share-btn-small { width: 100%; max-width: 300px; }
+            h1 { font-size: 2rem; }
+            .score-value { font-size: 3rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .controls { flex-direction: column; }
+            button { width: 100%; }
+            h1 { font-size: 1.7rem; }
+            .score-value { font-size: 2.5rem; }
+            .question-text { font-size: 1.1rem; padding: 15px; }
+            .option { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="icon">🧬</div>
+        <h1>Quiz for Seniors: Advanced Clinical MCQs – Lipid Metabolism</h1>
+        <p class="subtitle">60 Clinical Cases on Lipid Digestion, Lipoproteins, Oxidation, Disorders & Therapeutic Implications</p>
+        <div class="difficulty-badge">ADVANCED CLINICAL BIOCHEMISTRY</div>
+    </header>
+    
+    <div class="quiz-info">
+        <div class="info-item"><div class="info-value">60</div><div class="info-label">Questions</div></div>
+        <div class="info-item"><div class="info-value">Clinical Cases</div><div class="info-label">Lipid Disorders</div></div>
+        <div class="info-item"><div class="info-value">Lipoproteins</div><div class="info-label">Metabolism & Transport</div></div>
+        <div class="info-item"><div class="info-value">Enzymes</div><div class="info-label">Lipases & Oxidation</div></div>
+    </div>
+    
+    <div class="progress-bar"><div class="progress" id="progress-bar" style="width:0%"></div></div>
+    
+    <div class="quiz-container">
+        <div class="questions-section" id="questions-section"></div>
+        <div class="answer-section" id="answer-section">
+            <h2>Answer Bank</h2>
+            <div id="answer-bank"></div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="reset-btn" id="reset-btn">Reset Quiz</button>
+        <button class="submit-btn" id="submit-btn">Submit Answers</button>
+    </div>
+    
+    <div class="results-section" id="results-section">
+        <div class="score-display">
+            <h2>Your Advanced Clinical Score</h2>
+            <div class="score-value" id="score-value">0/60</div>
+            <p>Lipid Metabolism – Clinical Applications & Disorders</p>
+        </div>
+        <div class="stats">
+            <div class="stat-box attempted"><div class="stat-value" id="attempted-value">0</div><div class="stat-label">Attempted</div></div>
+            <div class="stat-box passed"><div class="stat-value" id="passed-value">0</div><div class="stat-label">Passed</div></div>
+            <div class="stat-box failed"><div class="stat-value" id="failed-value">0</div><div class="stat-label">Failed</div></div>
+        </div>
+        <div class="share-section">
+            <h3>Share Results</h3>
+            <div class="share-buttons">
+                <button class="share-btn-small share-twitter" id="share-twitter">🐦 Twitter</button>
+                <button class="share-btn-small share-facebook" id="share-facebook">📘 Facebook</button>
+                <button class="share-btn-small share-whatsapp" id="share-whatsapp">💬 WhatsApp</button>
+                <button class="share-btn-small share-copy" id="share-copy">📋 Copy</button>
+            </div>
+        </div>
+        <div class="answer-bank"><h3>Detailed Answers</h3><div id="detailed-answers"></div></div>
+    </div>
+    
+    <div class="support-section">
+        <h3>Follow Code God for More Medical Quizzes</h3>
+        <a href="https://www.tiktok.com/@code.god3?_r=1&_d=ZS-91SF7FxgGKu" target="_blank" class="support-link">Follow on TikTok</a>
+    </div>
+</div>
+
+<script>
+    // 60 questions – correct answer indices (A=0, B=1, C=2, D=3)
+    const rawData = [
+        { q: "A premature infant develops steatorrhea due to poor pancreatic enzyme secretion. Which enzyme is most important for fat digestion during early infancy?", opts: ["Pancreatic lipase", "Lingual lipase", "Lipoprotein lipase", "Hormone-sensitive lipase"], ans: 1 },
+        { q: "A patient with complete obstruction of the common bile duct is most likely to develop:", opts: ["Increased carbohydrate absorption", "Fat malabsorption", "Increased protein digestion", "Increased gastric emptying"], ans: 1 },
+        { q: "The major function of bile salts in lipid digestion is:", opts: ["Hydrolysis of triglycerides", "Emulsification of fats", "Oxidation of fatty acids", "Formation of ketone bodies"], ans: 1 },
+        { q: "A patient with chronic pancreatitis presents with bulky, greasy stools. Which enzyme deficiency is primarily responsible?", opts: ["Gastric lipase", "Pancreatic lipase", "Pepsin", "Amylase"], ans: 1 },
+        { q: "Failure to form micelles primarily affects absorption of:", opts: ["Amino acids", "Monosaccharides", "Long-chain fatty acids", "Fructose"], ans: 2 },
+        { q: "Chylomicrons are synthesized in:", opts: ["Hepatocytes", "Enterocytes", "Adipocytes", "Myocytes"], ans: 1 },
+        { q: "A deficiency of ApoB-48 will primarily impair:", opts: ["HDL formation", "Chylomicron formation", "LDL synthesis", "VLDL degradation"], ans: 1 },
+        { q: "Chylomicrons enter circulation through the:", opts: ["Hepatic portal vein", "Lacteals", "Splenic vein", "Renal vein"], ans: 1 },
+        { q: "Lipoprotein lipase is attached to:", opts: ["Hepatocyte membrane", "Endothelial cells", "Enterocytes", "Pancreatic acinar cells"], ans: 1 },
+        { q: "ApoC-II is required for activation of:", opts: ["Hormone-sensitive lipase", "Lipoprotein lipase", "Pancreatic lipase", "Gastric lipase"], ans: 1 },
+        { q: "A child with lipoprotein lipase deficiency will most likely have:", opts: ["Severe hypertriglyceridemia", "Low LDL", "Hypoglycemia", "Hypercalcemia"], ans: 0 },
+        { q: "Hormone-sensitive lipase is activated by:", opts: ["Insulin", "Glucagon", "Secretin", "Cholecystokinin"], ans: 1 },
+        { q: "Which hormone strongly inhibits hormone-sensitive lipase?", opts: ["Cortisol", "Insulin", "Growth hormone", "Thyroxine"], ans: 1 },
+        { q: "During prolonged fasting, adipose tissue mainly releases:", opts: ["Glycogen", "Free fatty acids", "Cholesterol", "Glycoproteins"], ans: 1 },
+        { q: "Free fatty acids circulate bound to:", opts: ["Hemoglobin", "Albumin", "LDL", "HDL"], ans: 1 },
+        { q: "Beta-oxidation occurs in the:", opts: ["Cytoplasm", "Mitochondria", "Golgi apparatus", "Lysosomes"], ans: 1 },
+        { q: "Transport of long-chain fatty acids into mitochondria requires:", opts: ["Biotin", "Carnitine", "Thiamine", "Folate"], ans: 1 },
+        { q: "Carnitine deficiency results in:", opts: ["Reduced beta-oxidation", "Increased glycogenesis", "Increased glycolysis", "Increased cholesterol synthesis"], ans: 0 },
+        { q: "CPT-I is inhibited by:", opts: ["Malonyl-CoA", "Acetyl-CoA", "ATP", "NADH"], ans: 0 },
+        { q: "Beta-oxidation directly produces:", opts: ["Lactate", "Acetyl-CoA", "Glucose", "Pyruvate"], ans: 1 },
+        { q: "A defect in alpha-oxidation leads to accumulation of:", opts: ["Phytanic acid", "Palmitic acid", "Oleic acid", "Acetic acid"], ans: 0 },
+        { q: "Refsum disease results from defective:", opts: ["Beta-oxidation", "Alpha-oxidation", "Glycolysis", "Ketogenesis"], ans: 1 },
+        { q: "Omega-oxidation occurs mainly in:", opts: ["Smooth endoplasmic reticulum", "Nucleus", "Ribosomes", "Lysosomes"], ans: 0 },
+        { q: "Omega-oxidation becomes clinically important when:", opts: ["Beta-oxidation is defective", "Protein intake increases", "Glycogen stores are full", "Insulin levels rise"], ans: 0 },
+        { q: "Which lipoprotein carries endogenous triglycerides?", opts: ["HDL", "LDL", "VLDL", "Chylomicrons"], ans: 2 },
+        { q: "LDL is formed from:", opts: ["HDL", "VLDL", "Chylomicrons", "Albumin"], ans: 1 },
+        { q: "Reverse cholesterol transport is performed by:", opts: ["LDL", "HDL", "VLDL", "Chylomicrons"], ans: 1 },
+        { q: "The rate-limiting enzyme of cholesterol synthesis is:", opts: ["HMG-CoA reductase", "Lipoprotein lipase", "Acetyl-CoA carboxylase", "CPT-I"], ans: 0 },
+        { q: "Statins lower cholesterol by inhibiting:", opts: ["HMG-CoA reductase", "Lipoprotein lipase", "Hormone-sensitive lipase", "Gastric lipase"], ans: 0 },
+        { q: "Cholesterol is the precursor of:", opts: ["Steroid hormones", "Glycogen", "Uric acid", "Creatinine"], ans: 0 },
+        { q: "HDL protects against:", opts: ["Atherosclerosis", "Diabetes mellitus", "Hypertension", "Gout"], ans: 0 },
+        { q: "Elevated LDL is associated with:", opts: ["Reduced cardiovascular risk", "Atherosclerosis", "Liver failure", "Pancreatitis"], ans: 1 },
+        { q: "Familial hypercholesterolemia is caused by defective:", opts: ["LDL receptors", "HDL receptors", "Insulin receptors", "Glucagon receptors"], ans: 0 },
+        { q: "The major storage form of fat is:", opts: ["Phospholipid", "Triglyceride", "Cholesterol", "Bile acid"], ans: 1 },
+        { q: "Insulin stimulates:", opts: ["Lipogenesis", "Lipolysis", "Ketogenesis", "Gluconeogenesis"], ans: 0 },
+        { q: "Glucagon stimulates:", opts: ["Lipogenesis", "Lipolysis", "Cholesterol synthesis", "Protein synthesis"], ans: 1 },
+        { q: "A diabetic patient lacking insulin will have increased:", opts: ["Fat synthesis", "Ketone production", "Glycogen synthesis", "Protein synthesis"], ans: 1 },
+        { q: "The liver converts excess acetyl-CoA into:", opts: ["Ketone bodies", "Glucose", "Glycogen", "Lactate"], ans: 0 },
+        { q: "Ketone bodies are produced in:", opts: ["Liver mitochondria", "Brain", "Kidney", "Skeletal muscle"], ans: 0 },
+        { q: "The brain can utilize ketone bodies during:", opts: ["Fed state only", "Prolonged fasting", "Immediately after meals", "Exercise only"], ans: 1 },
+        { q: "Which vitamin deficiency may occur with severe fat malabsorption?", opts: ["Vitamin C", "Vitamin D", "Vitamin B12", "Vitamin B6"], ans: 1 },
+        { q: "Steatorrhea is characterized by:", opts: ["Bloody stool", "Fatty stool", "Watery stool", "Mucus in stool"], ans: 1 },
+        { q: "Which lipoprotein is largest?", opts: ["HDL", "LDL", "Chylomicron", "IDL"], ans: 2 },
+        { q: "Which lipoprotein is richest in cholesterol?", opts: ["LDL", "HDL", "VLDL", "Chylomicron"], ans: 0 },
+        { q: "Which lipoprotein has the highest protein content?", opts: ["HDL", "LDL", "VLDL", "Chylomicron"], ans: 0 },
+        { q: "Deficiency of bile salts reduces absorption of:", opts: ["Iron", "Fat-soluble vitamins", "Vitamin C", "Vitamin B1"], ans: 1 },
+        { q: "Hormone-sensitive lipase acts mainly in:", opts: ["Adipose tissue", "Liver", "Small intestine", "Pancreas"], ans: 0 },
+        { q: "Lipoprotein lipase acts mainly on:", opts: ["Stored triglycerides", "Circulating triglycerides", "Cholesterol", "Phospholipids"], ans: 1 },
+        { q: "During fasting, which tissue supplies fatty acids?", opts: ["Liver", "Adipose tissue", "Brain", "Bone"], ans: 1 },
+        { q: "Which hormone increases cAMP to activate hormone-sensitive lipase?", opts: ["Glucagon", "Insulin", "Somatostatin", "Prolactin"], ans: 0 },
+        { q: "Beta-oxidation generates all EXCEPT:", opts: ["NADH", "FADH₂", "Acetyl-CoA", "Glucose"], ans: 3 },
+        { q: "Which tissue lacks significant beta-oxidation?", opts: ["Red blood cells", "Heart", "Liver", "Skeletal muscle"], ans: 0 },
+        { q: "A patient with carnitine deficiency is unable to efficiently metabolize:", opts: ["Long-chain fatty acids", "Glucose", "Amino acids", "Cholesterol"], ans: 0 },
+        { q: "Which enzyme is activated after a fatty meal by insulin?", opts: ["Lipoprotein lipase", "Hormone-sensitive lipase", "CPT-I", "HMG-CoA reductase only"], ans: 0 },
+        { q: "Which apolipoprotein mediates LDL uptake by cells?", opts: ["ApoB-100", "ApoC-II", "ApoA-I", "ApoB-48"], ans: 0 },
+        { q: "Cholesterol is eliminated mainly as:", opts: ["Bile acids", "Urea", "Creatinine", "Ammonia"], ans: 0 },
+        { q: "Gallstones composed mainly of cholesterol are associated with:", opts: ["Increased cholesterol in bile", "Increased glucose", "Increased amino acids", "Increased glycogen"], ans: 0 },
+        { q: "The primary energy source during prolonged starvation is:", opts: ["Fatty acids", "Glucose", "Glycogen", "Amino acids"], ans: 0 },
+        { q: "Which condition is most likely to produce ketosis?", opts: ["Prolonged fasting", "High-carbohydrate diet", "Hyperinsulinemia", "Immediately after meals"], ans: 0 },
+        { q: "A patient with uncontrolled type 1 diabetes develops ketoacidosis because of:", opts: ["Increased insulin action", "Excessive lipolysis and beta-oxidation", "Reduced glucagon secretion", "Reduced fatty acid release"], ans: 1 }
+    ];
+    
+    // Shuffle options for each question
+    function shuffleArray(arr) { for (let i=arr.length-1; i>0; i--) { const j=Math.floor(Math.random()*(i+1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+    
+    const quizData = rawData.map(item => {
+        const shuffled = shuffleArray([...item.opts]);
+        const correctText = item.opts[item.ans];
+        const newCorrect = shuffled.findIndex(opt => opt === correctText);
+        return { q: item.q, opts: shuffled, correct: newCorrect, originalAnswer: item.ans, originalOpts: item.opts };
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const questionsDiv = document.getElementById('questions-section');
+        const answerBankDiv = document.getElementById('answer-bank');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultsDiv = document.getElementById('results-section');
+        const scoreSpan = document.getElementById('score-value');
+        const attemptedSpan = document.getElementById('attempted-value');
+        const passedSpan = document.getElementById('passed-value');
+        const failedSpan = document.getElementById('failed-value');
+        const detailedDiv = document.getElementById('detailed-answers');
+        const progressBar = document.getElementById('progress-bar');
+        const answerSection = document.getElementById('answer-section');
+        
+        let userAnswers = Array(quizData.length).fill(null);
+        
+        quizData.forEach((item, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.innerHTML = `
+                <div class="question-number">${idx+1}</div>
+                <div class="question-text">${item.q}</div>
+                <div class="clinical-note">Advanced Clinical Lipid Metabolism</div>
+                <div class="options">
+                    ${item.opts.map((opt, optIdx) => `<div class="option" data-q="${idx}" data-opt="${optIdx}" data-letter="${String.fromCharCode(65+optIdx)}"><div class="option-content">${opt}</div></div>`).join('')}
+                </div>
+            `;
+            questionsDiv.appendChild(qDiv);
+            
+            const ansItem = document.createElement('div');
+            ansItem.className = 'answer-item';
+            const correctLetter = String.fromCharCode(65 + item.originalAnswer);
+            ansItem.innerHTML = `<strong>${idx+1}. ${item.q}</strong><br><span class="answer-correct">Correct: ${correctLetter}. ${item.originalOpts[item.originalAnswer]}</span>`;
+            answerBankDiv.appendChild(ansItem);
+        });
+        
+        function updateProgress() {
+            const answered = userAnswers.filter(a => a !== null).length;
+            progressBar.style.width = `${(answered/quizData.length)*100}%`;
+        }
+        
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const qIdx = parseInt(this.dataset.q);
+                const optVal = parseInt(this.dataset.opt);
+                document.querySelectorAll(`.option[data-q="${qIdx}"]`).forEach(g => g.classList.remove('selected'));
+                this.classList.add('selected');
+                userAnswers[qIdx] = optVal;
+                updateProgress();
+            });
+        });
+        
+        submitBtn.addEventListener('click', function() {
+            let score = 0, attempted = 0, passed = 0, failed = 0;
+            detailedDiv.innerHTML = '';
+            quizData.forEach((item, idx) => {
+                const userChoice = userAnswers[idx];
+                const correctAns = item.correct;
+                const correctLetter = String.fromCharCode(65 + item.originalAnswer);
+                const correctText = item.originalOpts[item.originalAnswer];
+                const userOptElem = document.querySelector(`.option[data-q="${idx}"][data-opt="${userChoice}"]`);
+                if (userChoice !== null) {
+                    attempted++;
+                    if (userChoice === correctAns) { score++; passed++; }
+                    else { failed++; }
+                    const userLetter = userOptElem ? userOptElem.dataset.letter : '?';
+                    const userText = userOptElem ? userOptElem.querySelector('.option-content').innerText : 'Not selected';
+                    const markClass = (userChoice === correctAns) ? 'answer-correct' : 'answer-incorrect';
+                    detailedDiv.innerHTML += `<div class="answer-item"><strong>${idx+1}. ${item.q}</strong><br><span class="${markClass}">Your answer: ${userLetter}. ${userText}</span><br><span class="answer-correct">Correct: ${correctLetter}. ${correctText}</span><br><div class="clinical-note">Answer: ${correctLetter}</div></div>`;
+                } else {
+                    detailedDiv.innerHTML += `<div class="answer-item"><strong>${idx+1}. ${item.q}</strong><br><span class="answer-incorrect">Your answer: Not attempted</span><br><span class="answer-correct">Correct: ${correctLetter}. ${correctText}</span><br><div class="clinical-note">Answer: ${correctLetter}</div></div>`;
+                }
+            });
+            scoreSpan.innerText = `${score}/${quizData.length}`;
+            attemptedSpan.innerText = attempted;
+            passedSpan.innerText = passed;
+            failedSpan.innerText = failed;
+            resultsDiv.style.display = 'block';
+            answerSection.classList.add('visible');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        resetBtn.addEventListener('click', function() {
+            userAnswers.fill(null);
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+            resultsDiv.style.display = 'none';
+            answerSection.classList.remove('visible');
+            progressBar.style.width = '0%';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        document.getElementById('share-twitter').onclick = () => window.open(`https://twitter.com/intent/tweet?text=My%20score%20on%20Advanced%20Lipid%20Metabolism%20Clinical%20Quiz%20is%20${scoreSpan.innerText}%20!%20Test%20yourself%3A%20${window.location.href}`);
+        document.getElementById('share-facebook').onclick = () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`);
+        document.getElementById('share-whatsapp').onclick = () => window.open(`https://wa.me/?text=I%20scored%20${scoreSpan.innerText}%20on%20this%20advanced%20lipid%20metabolism%20quiz%3A%20${window.location.href}`);
+        document.getElementById('share-copy').onclick = () => { navigator.clipboard.writeText(`Advanced Lipid Metabolism Quiz Score: ${scoreSpan.innerText} - ${window.location.href}`).then(()=>alert('Copied!')); };
+    });
+</script>
+</body>
+</html>
